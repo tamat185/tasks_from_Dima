@@ -1,22 +1,16 @@
-
 def amount_call_func(func):
     total = 0
-    def wrapper(*args):
+    def wrapper(*args, **kwargs):
         nonlocal total
         total = total + 1
-        print(total)
-        func(*args)
+        return func(*args, **kwargs)
     return wrapper
 
 @amount_call_func
-def summ(a, b):
-    return a + b
-
-@amount_call_func
-def div(a, b):
-    return a - b
-
-summ(1,3)
-div(1,7)
-summ(4, 78)
-div(5, 78)
+def summ(*args, **kwargs):
+    total = 0
+    for arg in args:
+        total = total + arg
+    for key in kwargs:
+        total = total + kwargs[key]
+    return total
